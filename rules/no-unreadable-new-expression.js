@@ -3,37 +3,26 @@ const {} = require('./ast/index.js');
 const {} = require('./fix/index.js');
 const {} = require('./utils/index.js');
 
-
-const MESSAGE_ID= 'no-unreadable-new-expression';
+const MESSAGE_ID = 'no-unreadable-new-expression';
 const messages = {
-	[MESSAGE_ID]: 'Prefer `{{replacement}}` over `{{value}}`.',
+	[MESSAGE_ID]: 'Disallow unreadable new expression',
 };
-
 
 /** @param {import('eslint').Rule.RuleContext} context */
-const create = context => {
-	return {
-		Literal(node) {
-			if (node.value !== 'unicorn') {
-				return;
-			}
-
-			return {
+const create = context => ({
+	/**
+	*
+	* @param {import('estree').NewExpression} node
+	*/
+	NewExpression(node) {
+		if (node.parent.type === 'MemberExpression' || node.callee.type !== 'Identifier') {
+			context.report({
 				node,
 				messageId: MESSAGE_ID,
-				data: {
-					value: 'unicorn',
-					replacement: '🦄',
-				},
-				
-				/** @param {import('eslint').Rule.RuleFixer} fixer */
-				fix: fixer => fixer.replaceText(node, '\'🦄\''),
-				
-				
-			};
-		},
-	};
-};
+			});
+		}
+	},
+});
 
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
@@ -45,7 +34,7 @@ module.exports = {
 			recommended: true,
 		},
 		fixable: 'code',
-		
+
 		messages,
 	},
 };

@@ -5,9 +5,9 @@ const {test} = getTester(import.meta);
 
 test.snapshot({
 	valid: [
-		'const foo = "🦄";',
+		'const foo = new Foo();',
 	],
 	invalid: [
-		'const foo = "unicorn";',
+		'const bar = new Foo().getBar();',
 	],
 });
