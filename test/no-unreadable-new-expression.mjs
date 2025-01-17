@@ -22,6 +22,8 @@ test.snapshot({
 	invalid: [
 		'const bar = new Foo().getBar();',
 		'const Bar = new Foo().Bar;',
+		'const Bar = new (Foo());',
+		'const Bar = new (Foo())();',
 		'const Bar = new (Foo().Bar);',
 		'const bar = new foo.Bar();',
 		'const bar = new (foo.Bar)();',
