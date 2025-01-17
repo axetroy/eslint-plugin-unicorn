@@ -38,7 +38,7 @@ test.snapshot({
 
 			const bar = new (foo().Bar)();
 		`,
-		`const bar = new ((0, Foo)).Bar();`,
-		`const bar = new ((() => Foo)()).Bar();`,
+		'const bar = new ((0, Foo)).Bar();',
+		'const bar = new ((() => Foo)()).Bar();',
 	],
 });

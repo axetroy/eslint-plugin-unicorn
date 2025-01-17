@@ -1,7 +1,4 @@
 'use strict';
-const {} = require('./ast/index.js');
-const {} = require('./fix/index.js');
-const {} = require('./utils/index.js');
 
 const MESSAGE_ID = 'no-unreadable-new-expression';
 const messages = {
